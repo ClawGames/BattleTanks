@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BattleTanks.h"
+#include "TankBarrel.h"
 #include "TankAimingComponent.h"
 
 
@@ -24,7 +25,7 @@ void UTankAimingComponent::BeginPlay()
 	
 }
 
-void UTankAimingComponent::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
@@ -64,9 +65,7 @@ void UTankAimingComponent::MoveBarrel(FVector AimDirection)
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	// Get Barrel and Turret
-	// Rotate Barrel based on X axis
-	// Rotate Turret based on Z axis 
+	Barrel->Elevate(5); // TODO remove magic number
 
 	UE_LOG(LogTemp, Warning, TEXT("Aiming at %s"), *AimDirection.ToString());
 }
