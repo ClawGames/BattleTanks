@@ -5,16 +5,23 @@
 
 void ATankAiController::BeginPlay()
 {
-	ATank* PlayerTank = GetPlayerTank();
+	Super::BeginPlay();
+}
 
+void ATankAiController::Tick(float DeltaTime)
+{
+	Super::Tick( DeltaTime );
+
+	ATank* PlayerTank = GetPlayerTank();
+	ATank* OurTank = GetControlledTank();
 	if (PlayerTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Ai tank: %s"), *PlayerTank->GetName());
+		OurTank->AimAt(PlayerTank->GetActorLocation());
 	}
-	else {
-		UE_LOG(LogTemp, Error, TEXT("Error possesing a tank"));
-	}
+	
+
 }
+
 
 ATank* ATankAiController::GetControlledTank() const
 {
@@ -28,7 +35,6 @@ ATank* ATankAiController::GetPlayerTank() const
 
 	if (PlayerTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("We found our player tank. It is called %s"), *PlayerTank->GetName());
 		return PlayerTank;
 	}
 	else 

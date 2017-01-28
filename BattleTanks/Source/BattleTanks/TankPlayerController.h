@@ -13,8 +13,25 @@ UCLASS()
 class BATTLETANKS_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
-public:
+
+private:
 	ATank* GetControlledTank() const;
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairXLocation;
+
+	UPROPERTY(EditAnywhere)
+	float CrossHairYLocation;
+
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 1000000;
+	//Tart the tank to move barrel to point where the cursor is pointing
+
+	void AimTowardsCrosshair() const;
+
+	bool GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation);
+
+	bool GetSightRayHitLocation(FVector& HitLocation) const;
 };
