@@ -52,11 +52,16 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	FString OurTankName = GetOwner()->GetName();
+	FVector AimDirection;
 	// Calculate the OutLaumchVelocity
 	if (UGameplayStatics::SuggestProjectileVelocity(this, OutLaunchVelocity, StartLocation, HitLocation, LaunchSpeed, false, 0, 0, ESuggestProjVelocityTraceOption::DoNotTrace))
 	{
-		FVector AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 
+		MoveBarrel(AimDirection);
+		MoveTurret(AimDirection);
+	}
+	else {
 		MoveBarrel(AimDirection);
 		MoveTurret(AimDirection);
 	}

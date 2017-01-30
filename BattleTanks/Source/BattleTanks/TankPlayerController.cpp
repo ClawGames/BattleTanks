@@ -39,7 +39,6 @@ void ATankPlayerController::AimTowardsCrosshair() const
 	{
 		GetControlledTank()->AimAt(HitLocation);
 	}
-
 	// Get world location if linetrace through crosshair
 	// If it hits the landscape
 		// Tell controlled tank to aim at this point
