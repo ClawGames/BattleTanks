@@ -26,9 +26,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float CrossHairYLocation;
-
-	UPROPERTY(EditAnywhere)
-	float LineTraceRange = 1000000;
 	//Tart the tank to move barrel to point where the cursor is pointing
 
 	void AimTowardsCrosshair() const;
