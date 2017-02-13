@@ -18,6 +18,23 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 }
 
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
+{
+	FVector TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	FVector AIForwardIntention = MoveVelocity.GetSafeNormal();
+
+	float ForwardThrow = FVector::DotProduct(TankForward, AIForwardIntention);
+
+	IntendMoveForward(ForwardThrow);
+
+	FVector RotationThrowVector = FVector::CrossProduct(TankForward, AIForwardIntention);
+
+	IntendTurnRight(RotationThrowVector.Z);
+
+
+	//UE_LOG(LogTemp, Log, TEXT("MoveVelocity %s"), *MoveVelocity.ToString());
+}
+
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	LeftTrack->SetThrottle(Throw);

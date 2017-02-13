@@ -13,8 +13,10 @@ void ATankAiController::Tick(float DeltaTime)
 
 	if (PlayerTank)
 	{
+		MoveToActor(PlayerTank, AcceptanceRadius);
+
 		OurTank->AimAt(PlayerTank->GetActorLocation());
-		OurTank->Fire();
+		// OurTank->Fire();
 	}
 	else {
 		UE_LOG(LogTemp, Error, TEXT("We couldn't find players' tank"));
